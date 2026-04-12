@@ -22,108 +22,35 @@ body {
 .invitation-wrapper {
     width: 100vw;
     height: 100vh;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     background-color: #000;
 }
 
-.background-container {
+.invitation-container {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.bg-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Shows full image on all screens */
-    background-color: #000;
-}
-
-.scroll-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -78%); /* Lifted significantly higher */
-    width: 42%;
-    max-width: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-}
-
-.baby-name {
-    font-family: 'Great Vibes', cursive;
-    color: var(--primary-red);
-    font-size: min(7vw, 54px);
-    margin-bottom: -10px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.age-text {
-    font-family: 'Lobster', cursive;
-    color: var(--primary-blue);
-    font-size: min(3.5vw, 26px);
-    margin-bottom: 10px;
-    font-weight: normal;
-}
-
-.invite-msg {
-    color: var(--msg-text);
-    font-size: min(1.8vw, 12px);
-    font-weight: 700;
-    max-width: 220px;
-    line-height: 1.2;
-    margin-bottom: 10px;
-}
-
-.details-grid {
     display: flex;
     justify-content: center;
-    gap: min(4vw, 30px);
-    margin-bottom: 10px;
-    color: var(--primary-red);
-}
-
-.detail-item {
-    display: flex;
-    flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
-.detail-item .label, .detail-item .sub-label {
-    font-size: min(1.6vw, 11px);
-    font-weight: 700;
-    color: var(--primary-blue);
+.master-svg {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
 }
 
-.detail-item .value {
-    font-family: 'Great Vibes', cursive;
-    font-size: min(5vw, 34px);
-    line-height: 1;
+.svg-shadow {
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.2));
 }
 
-.location-area {
-    color: #1A5276; /* Royal Blue for high contrast */
-    font-weight: 700;
-}
-
-.venue {
-    font-size: min(2.5vw, 15px);
-    margin-bottom: -1px;
-    text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.5);
-}
-
-.address {
-    font-size: min(1.8vw, 11px);
-    opacity: 1;
-}
+/* Removed scroll-content styles as everything is now in the Unified SVG */
 
 /* Magic Bird Animation */
 #magic-bird {
@@ -276,23 +203,100 @@ input, textarea {
     border: 1px solid #ddd;
     border-radius: 8px;
     font-family: 'Quicksand', sans-serif;
+    outline: none;
+    transition: border-color 0.3s;
 }
+
+input:focus {
+    border-color: var(--primary-blue);
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
+.form-group.half { flex: 2; }
+.form-group.quarter { flex: 1; }
+
+.add-btn {
+    background: var(--gold-accent);
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-bottom: 5px;
+}
+
+.add-btn:hover {
+    transform: rotate(90deg) scale(1.1);
+    background: #b8860b;
+}
+
+.add-btn.hidden { display: none; }
 
 .submit-btn {
     width: 100%;
     padding: 15px;
-    background: var(--primary-red);
+    background: linear-gradient(135deg, var(--primary-red), #e53935);
     color: #fff;
-    border: none;
+    border: 2px solid var(--gold-accent);
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(176, 30, 23, 0.4);
+    position: relative;
+    overflow: hidden;
 }
 
 .submit-btn:hover {
-    background: #8e1812;
+    background: linear-gradient(135deg, #8e1812, var(--primary-red));
+    box-shadow: 0 0 20px var(--gold-accent);
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+.submit-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.submit-btn:active::after {
+    opacity: 1;
+}
+
+@keyframes magic-pulse {
+    0% { box-shadow: 0 0 5px var(--gold-accent); }
+    50% { box-shadow: 0 0 25px var(--gold-accent); }
+    100% { box-shadow: 0 0 5px var(--gold-accent); }
+}
+
+.btn-magic-glow {
+    animation: magic-pulse 1.5s infinite;
 }
 
 /* Magic Overlay */
