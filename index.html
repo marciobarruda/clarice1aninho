@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Clarice - Celebração Encantada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Quicksand:wght@500;700&family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="magic-overlay"></div>
+
+    <main class="invitation-wrapper">
+        <div class="background-container">
+            <img src="final_background.png" alt="Enchanted Forest" class="bg-image">
+            
+            <div class="scroll-content">
+                <h1 class="baby-name">Clarice</h1>
+                <h2 class="age-text">1 aninho</h2>
+                
+                <p class="invite-msg">
+                    É com muita alegria que convidamos você para uma celebração encantada!
+                </p>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="label">Domingo</span>
+                        <span class="value date-val">07</span>
+                        <span class="sub-label">Junho</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Às</span>
+                        <span class="value time-val">10</span>
+                        <span class="sub-label">Horas</span>
+                    </div>
+                </div>
+
+                <div class="location-area">
+                    <p class="venue">PraBrinkar</p>
+                    <p class="address">Rua Honório Correia, 43 - Cordeiro</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feather RSVP Button -->
+        <button id="rsvp-trigger" title="Confirmar Presença">
+            <svg viewBox="0 0 100 100" class="feather-svg">
+                <path d="M90 10 Q60 10 40 40 Q20 70 10 90 L15 95 Q30 85 60 65 Q90 45 90 10" fill="white" stroke="#D4AF37" stroke-width="2"/>
+                <path d="M40 40 L35 45 M50 30 L45 35 M60 20 L55 25" stroke="#D4AF37" stroke-width="1"/>
+            </svg>
+            <span class="btn-text">Confirmar Presença</span>
+        </button>
+    </main>
+
+    <!-- RSVP Modal Form -->
+    <div id="rsvp-modal" class="hidden">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div id="form-inner">
+                <h3>Confirmação de Presença</h3>
+                <form id="rsvp-form">
+                    <div class="form-group">
+                        <label for="adult-name">Nome do Convidado (Adulto)</label>
+                        <input type="text" id="adult-name" required placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="guests-count">Quantos adultos acompanham?</label>
+                        <input type="number" id="guests-count" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="children-names">Nomes e idades das crianças</label>
+                        <textarea id="children-names" placeholder="Ex: Maria (4 anos), João (2 anos)"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar com Magia ✨</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

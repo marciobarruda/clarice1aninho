@@ -1,0 +1,13 @@
+# Temporary backgrounds
+background.png
+background_temp.png
+background_v2.png
+background_v3.png
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Gemini/Antigravity temp files
+.temp*
+*.bak
