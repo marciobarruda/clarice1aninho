@@ -79,11 +79,51 @@ body {
 }
 
 @keyframes bird-fly-path {
-    0% { left: -100px; top: 70%; transform: scale(0.5); }
-    20% { left: 20%; top: 50%; transform: scale(1); }
-    50% { left: 50%; top: 40%; transform: scale(1.2); }
-    80% { left: 80%; top: 30%; transform: scale(1); }
-    100% { left: 120%; top: 10%; transform: scale(0.5); }
+    0% { left: -150px; top: 70%; transform: scale(0.4) rotate(10deg); }
+    25% { left: 20%; top: 40%; transform: scale(1) rotate(-5deg); }
+    50% { left: 50%; top: 50%; transform: scale(1.4) rotate(0deg); }
+    75% { left: 80%; top: 30%; transform: scale(1) rotate(5deg); }
+    100% { left: 120%; top: -10%; transform: scale(0.4) rotate(-10deg); }
+}
+
+/* 3D Pix-Style Bird Styling */
+.bird-container {
+    position: relative;
+    width: 140px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: bird-fly-animation 0.8s infinite ease-in-out alternate;
+    z-index: 2000;
+}
+
+.bird-image {
+    width: 100%;
+    height: auto;
+    filter: url(#remove-white-filter) drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+}
+
+.guest-name-badge {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary-red);
+    border: 2px solid var(--gold-accent);
+    margin-bottom: -10px; /* Position above the bird */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    font-family: 'Quicksand', sans-serif;
+    transform: rotate(-3deg);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+@keyframes bird-fly-animation {
+    0% { transform: translateY(0) scale(1, 1) rotate(-5deg); }
+    50% { transform: translateY(-15px) scale(1.05, 0.95) rotate(0deg); }
+    100% { transform: translateY(0) scale(0.98, 1.02) rotate(5deg); }
 }
 
 /* Feather RSVP Button */

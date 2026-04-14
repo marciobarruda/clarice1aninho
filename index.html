@@ -13,6 +13,22 @@
 <body>
     <div id="magic-overlay"></div>
 
+    <!-- SVG Filter for Transparency (Sharp Clipping for Pure White Background) -->
+    <svg style="position: absolute; width: 0; height: 0;">
+        <filter id="remove-white-filter">
+            <!-- 1. Capture original image -->
+            <feColorMatrix in="SourceGraphic" result="original" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+            <!-- 2. Calculate luminance -->
+            <feColorMatrix in="SourceGraphic" result="lum" type="luminanceToAlpha" />
+            <!-- 3. Threshold: Alpha is 0 Only for pure/near white (98% brightness +) -->
+            <feComponentTransfer in="lum" result="mask">
+                <feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0" />
+            </feComponentTransfer>
+            <!-- 4. Mask the original image -->
+            <feComposite in="original" in2="mask" operator="in" />
+        </filter>
+    </svg>
+
     <main class="invitation-wrapper">
         <div class="invitation-container" id="invitation-stage">
             <!-- Unified SVG: Background + Text scale as a single unit -->
@@ -21,41 +37,41 @@
                 <image href="https://cdn.jsdelivr.net/gh/marciobarruda/clarice1aninho@main/final_background.png" x="0" y="0" width="1024" height="1024" />
                 
                 <!-- Text Overlays (Coordinates calibrated for 1024x1024 canvas) -->
-                <g class="text-layer" transform="translate(530, 0)">
+                <g class="text-layer" transform="translate(512, -130)">
                     <!-- Clarice -->
-                    <text y="360" font-family="'Great Vibes', cursive" font-size="75" fill="#B01E17" text-anchor="middle" class="svg-shadow">Clarice</text>
+                    <text y="375" font-family="'Great Vibes', cursive" font-size="80" fill="#B01E17" text-anchor="middle" class="svg-shadow">Clarice</text>
                     <!-- 1 aninho -->
-                    <text y="415" font-family="'Lobster', cursive" font-size="34" fill="#1A5276" text-anchor="middle">1 aninho</text>
+                    <text y="435" font-family="'Lobster', cursive" font-size="34" fill="#1A5276" text-anchor="middle">1 aninho</text>
                     
                     <!-- Invite Msg -->
-                    <g transform="translate(0, 460)">
-                        <text y="0" font-family="'Quicksand', sans-serif" font-size="17" font-weight="bold" fill="#4E342E" text-anchor="middle">É com muita alegria que convidamos</text>
-                        <text y="24" font-family="'Quicksand', sans-serif" font-size="17" font-weight="bold" fill="#4E342E" text-anchor="middle">você para uma celebração</text>
-                        <text y="48" font-family="'Quicksand', sans-serif" font-size="17" font-weight="bold" fill="#4E342E" text-anchor="middle">encantada!</text>
+                    <g transform="translate(0, 470)">
+                        <text y="0" font-family="'Quicksand', sans-serif" font-size="18" font-weight="bold" fill="#4E342E" text-anchor="middle">É com muita alegria que convidamos</text>
+                        <text y="26" font-family="'Quicksand', sans-serif" font-size="18" font-weight="bold" fill="#4E342E" text-anchor="middle">você para uma celebração</text>
+                        <text y="52" font-family="'Quicksand', sans-serif" font-size="18" font-weight="bold" fill="#4E342E" text-anchor="middle">encantada!</text>
                     </g>
 
                     <!-- Details Grid -->
-                    <g transform="translate(0, 565)">
+                    <g transform="translate(0, 570)">
                         <!-- Date -->
-                        <g transform="translate(-75, 0)">
-                            <text y="0" font-family="'Quicksand', sans-serif" font-size="15" font-weight="700" fill="#1A5276" text-anchor="middle">Domingo</text>
-                            <text y="48" font-family="'Great Vibes', cursive" font-size="58" fill="#B01E17" text-anchor="middle">07</text>
-                            <text y="75" font-family="'Quicksand', sans-serif" font-size="15" font-weight="700" fill="#1A5276" text-anchor="middle">Junho</text>
+                        <g transform="translate(-85, 0)">
+                            <text y="0" font-family="'Quicksand', sans-serif" font-size="16" font-weight="700" fill="#1A5276" text-anchor="middle">Domingo</text>
+                            <text y="50" font-family="'Great Vibes', cursive" font-size="62" fill="#B01E17" text-anchor="middle">07</text>
+                            <text y="78" font-family="'Quicksand', sans-serif" font-size="16" font-weight="700" fill="#1A5276" text-anchor="middle">Junho</text>
                         </g>
                         <!-- Separation Line -->
-                        <line x1="0" y1="-10" x2="0" y2="75" stroke="#D4AF37" stroke-width="1.5" opacity="0.4" />
+                        <line x1="0" y1="-10" x2="0" y2="80" stroke="#D4AF37" stroke-width="1.5" opacity="0.4" />
                         <!-- Time -->
-                        <g transform="translate(75, 0)">
-                            <text y="0" font-family="'Quicksand', sans-serif" font-size="15" font-weight="700" fill="#1A5276" text-anchor="middle">Às</text>
-                            <text y="48" font-family="'Great Vibes', cursive" font-size="58" fill="#B01E17" text-anchor="middle">10</text>
-                            <text y="75" font-family="'Quicksand', sans-serif" font-size="15" font-weight="700" fill="#1A5276" text-anchor="middle">Horas</text>
+                        <g transform="translate(85, 0)">
+                            <text y="0" font-family="'Quicksand', sans-serif" font-size="16" font-weight="700" fill="#1A5276" text-anchor="middle">Às</text>
+                            <text y="50" font-family="'Great Vibes', cursive" font-size="62" fill="#B01E17" text-anchor="middle">10</text>
+                            <text y="78" font-family="'Quicksand', sans-serif" font-size="16" font-weight="700" fill="#1A5276" text-anchor="middle">Horas</text>
                         </g>
                     </g>
 
                     <!-- Location Area -->
-                    <g transform="translate(0, 695)">
-                        <text y="0" font-family="'Quicksand', sans-serif" font-size="24" font-weight="bold" fill="#1A5276" text-anchor="middle">PraBrinkar</text>
-                        <text y="28" font-family="'Quicksand', sans-serif" font-size="16" fill="#1A5276" text-anchor="middle">Rua Honório Correia, 43 - Cordeiro</text>
+                    <g transform="translate(0, 690)">
+                        <text y="0" font-family="'Quicksand', sans-serif" font-size="28" font-weight="bold" fill="#1A5276" text-anchor="middle">PraBrinkar</text>
+                        <text y="32" font-family="'Quicksand', sans-serif" font-size="18" fill="#1A5276" text-anchor="middle">Rua Honório Correia, 43 - Cordeiro</text>
                     </g>
                 </g>
             </svg>

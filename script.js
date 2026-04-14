@@ -7,69 +7,15 @@ const rsvpForm = document.getElementById('rsvp-form');
 const formInner = document.getElementById('form-inner');
 
 // Create Bird Sprite Element
-// Create Ultra-High Fidelity Pixar/Disney Bird (v5 - Masterpiece)
 function createBird() {
     const bird = document.createElement('div');
     bird.id = 'magic-bird';
     const guestName = document.getElementById('adult-name').value;
     bird.innerHTML = `
-        <svg viewBox="0 0 160 160" class="bird-svg">
-            <defs>
-                <linearGradient id="birdBlue" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:#339af0" />
-                    <stop offset="100%" style="stop-color:#1971c2" />
-                </linearGradient>
-                <linearGradient id="birdWhite" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style="stop-color:#fff" />
-                    <stop offset="100%" style="stop-color:#e7f5ff" />
-                </linearGradient>
-            </defs>
-            <!-- Tail -->
-            <path d="M40 90 L10 110 Q5 90 20 80 Z" fill="#1864ab" />
-            <path d="M40 95 L15 120 Q10 100 25 90 Z" fill="#1971c2" />
-            
-            <!-- Feet -->
-            <path d="M75 120 L72 135 M75 120 L78 135" stroke="#fd7e14" stroke-width="2.5" stroke-linecap="round" />
-            <path d="M95 120 L92 135 M95 120 L98 135" stroke="#fd7e14" stroke-width="2.5" stroke-linecap="round" />
-
-            <!-- Body -->
-            <path d="M45 80 Q45 120 85 120 Q125 120 125 80 Q125 50 85 40 Q45 50 45 80" fill="url(#birdBlue)" />
-            
-            <!-- Tummy/Breast (White) -->
-            <path d="M60 85 Q85 110 110 85 Q110 70 85 70 Q60 70 60 85" fill="url(#birdWhite)" />
-
-            <!-- Wings -->
-            <path class="wing-back" d="M60 60 Q20 20 10 70" fill="#1864ab" opacity="0.6">
-                <animateTransform attributeName="transform" type="rotate" from="0 60 60" to="-45 60 60" dur="0.25s" repeatCount="indefinite" />
-            </path>
-            <path class="wing" d="M100 65 Q140 30 150 80 L140 90 Q120 80 100 65" fill="#4dabf7" stroke="#1864ab" stroke-width="1">
-                <animateTransform attributeName="transform" type="rotate" from="0 100 65" to="15 100 65" dur="0.3s" repeatCount="indefinite" alternate="true" />
-            </path>
-
-            <!-- Head -->
-            <g transform="translate(85, 45)">
-                <circle cx="0" cy="0" r="28" fill="url(#birdBlue)" />
-                <!-- Crest -->
-                <path d="M-10 -25 Q0 -40 10 -25" fill="#1c7ed6" />
-                <!-- Eyes -->
-                <circle cx="-10" cy="-5" r="8" fill="white" />
-                <circle cx="-8" cy="-5" r="4" fill="black" />
-                <circle cx="-6" cy="-7" r="1.5" fill="white" />
-                <circle cx="10" cy="-5" r="8" fill="white" />
-                <circle cx="12" cy="-5" r="4" fill="black" />
-                <circle cx="14" cy="-7" r="1.5" fill="white" />
-                <!-- Beak -->
-                <path d="M0 5 L-5 20 L5 20 Z" fill="#fab005" stroke="#e67e22" stroke-width="0.5" />
-            </g>
-
-            <!-- Personal Envelope (Carried in Beak) -->
-            <g transform="translate(85, 65) rotate(10)">
-                <rect x="-30" y="0" width="60" height="40" rx="3" fill="#fff" stroke="#d4af37" stroke-width="2"/>
-                <path d="M-30 0 L0 20 L30 0" fill="none" stroke="#eee" stroke-width="1.5"/>
-                <text x="0" y="30" font-family="'Quicksand', sans-serif" font-size="10" font-weight="bold" fill="#B01E17" text-anchor="middle" textLength="50" lengthAdjust="spacingAndGlyphs">${guestName}</text>
-                <circle cx="0" cy="20" r="5" fill="#B01E17" />
-            </g>
-        </svg>
+        <div class="bird-container">
+            <div class="guest-name-badge">${guestName}</div>
+            <img src="magic_bird.png" class="bird-image" alt="Pássaro Mágico">
+        </div>
     `;
     return bird;
 }
@@ -202,38 +148,28 @@ rsvpForm.addEventListener('submit', (e) => {
     // Add temporary glow effect
     submitBtn.classList.add('btn-magic-glow');
 
-    // 2. Roll up the parchment
-    setTimeout(() => {
-        // Replace form with closed scroll
-        formInner.classList.add('hidden');
-        const closedScroll = createClosedScroll(guestName, childrenText);
-        rsvpModal.querySelector('.modal-content').appendChild(closedScroll);
-
-        // 3. After roll-up completes, the bird takes it away
-        setTimeout(() => {
-            const bird = createBird();
+    // 2. Close modal and launch bird
+    setTimeout(async () => {
+        // Close the modal
+        rsvpModal.classList.remove('visible');
+        
+        // Short delay for the modal to fade before bird appears
+        setTimeout(async () => {
+            const bird = await createBird();
             document.body.appendChild(bird);
             
-            // Add vanishing effect to the scroll
-            closedScroll.classList.add('vanish-away');
-
-            // 4. Close the modal and cleanup
+            // Re-hide the modal for future use and reset form
             setTimeout(() => {
-                rsvpModal.classList.remove('visible');
+                rsvpModal.classList.add('hidden');
                 submitBtn.classList.remove('btn-magic-glow');
-                setTimeout(() => {
-                    rsvpModal.classList.add('hidden');
-                    // Reset everything
-                    bird.remove();
-                    closedScroll.remove();
-                    formInner.classList.remove('hidden');
-                    secondChild.classList.add('hidden');
-                    addChildBtn.classList.remove('hidden');
-                    rsvpForm.reset();
-                }, 500);
-            }, 2000);
-        }, 1200); // Wait for roll-up animation
-    }, 400);
+                formInner.classList.remove('hidden');
+                secondChild.classList.add('hidden');
+                addChildBtn.classList.remove('hidden');
+                rsvpForm.reset();
+                bird.remove();
+            }, 4000); // Wait for the bird to finish its flight path
+        }, 300);
+    }, 600);
 
     console.log('Magical Submission Started for:', guestName);
 });
